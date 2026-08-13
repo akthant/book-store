@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
@@ -10,14 +10,14 @@ import {ErrorStateMatcher} from '@angular/material/core';
   styleUrls: ['./book-create.component.css']
 })
 export class BookCreateComponent implements OnInit {
-  bookForm: FormGroup;
+  bookForm: UntypedFormGroup;
   isbn:string='';
   title:string='';
   description:string='';
   author:string='';
   publisher:string='';
   published_year:string='';
-  constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private api: ApiService, private formBuilder: UntypedFormBuilder) { }
 
   matcher = new MyErrorStateMatcher();
 
@@ -43,7 +43,7 @@ export class BookCreateComponent implements OnInit {
 }
   /** Error when invalid control is dirty, touched, or submitted. */
   export class MyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
       const isSubmitted = form && form.submitted;
       return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
